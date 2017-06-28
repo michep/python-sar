@@ -72,18 +72,17 @@ FIELD_PAIRS_TASK = {
 }
 
 """Network usage regexp pattern for SAR section header"""
-PATTERN_IFACE = '.*IFACE.*rxpck\/s.*txpck\/s.*rxkB\/s.*txkB\/s.*rxcmp\/s.*txcmp\/s.*rxmcst\/s.*ifutil'
+PATTERN_IFACE = '.*IFACE.*rxpck\/s.*txpck\/s.*rxkB\/s.*txkB\/s.*rxcmp\/s.*txcmp\/s.*rxmcst\/s'
 
 """Regexp terms for finding fields in SAR parts for network usage"""
 FIELDS_IFACE = [
-    '^IFACE','^rxpck\/s','^txpck\/s','^rxkB\/s','^txkB\/s','^rxcmp\/s','^txcmp\/s','^rxmcst\/s','^%ifutil'
+    '^IFACE','^rxpck\/s','^txpck\/s','^rxkB\/s','^txkB\/s','^rxcmp\/s','^txcmp\/s','^rxmcst\/s'
 ]
 
 """Pair regexp terms with field names in network usage dictionary"""
 FIELD_PAIRS_IFACE = {
     'iface':FIELDS_IFACE[0], 'rxpck':FIELDS_IFACE[1], 'txpck':FIELDS_IFACE[2], 'rxkB':FIELDS_IFACE[3],
-    'txkB':FIELDS_IFACE[4], 'rxcmp':FIELDS_IFACE[5], 'txcmp':FIELDS_IFACE[6], 'rxmcst':FIELDS_IFACE[7],
-    'ifutil':FIELDS_IFACE[8]
+    'txkB':FIELDS_IFACE[4], 'rxcmp':FIELDS_IFACE[5], 'txcmp':FIELDS_IFACE[6], 'rxmcst':FIELDS_IFACE[7]
 }
 
 """Network usage regexp pattern for SAR section header"""
@@ -91,13 +90,13 @@ PATTERN_LOAD = '.*runq-sz.*plist-sz.*ldavg-1.*ldavg-5.*ldavg-15.*blocked'
 
 """Regexp terms for finding fields in SAR parts for network usage"""
 FIELDS_LOAD = [
-    '^runq-sz','^plist-sz','^ldavg-1','^ldavg-5','^ldavg-15','^blocked'
+    '^runq-sz','^plist-sz','^ldavg-1$','^ldavg-5','^ldavg-15$','^blocked'
 ]
 
 """Pair regexp terms with field names in network usage dictionary"""
 FIELD_PAIRS_LOAD = {
-    'runq-sz':FIELDS_IFACE[0], 'plist-sz':FIELDS_IFACE[1], 'ldavg-1':FIELDS_IFACE[2], 'ldavg-5':FIELDS_IFACE[3],
-    'ldavg-15':FIELDS_IFACE[4], 'blocked':FIELDS_IFACE[5]
+    'runq-sz':FIELDS_LOAD[0], 'plist-sz':FIELDS_LOAD[1], 'ldavg-1':FIELDS_LOAD[2], 'ldavg-5':FIELDS_LOAD[3],
+    'ldavg-15':FIELDS_LOAD[4], 'blocked':FIELDS_LOAD[5]
 }
 
 """Restart time regexp pattern for detecting SAR restart notices"""
@@ -147,7 +146,13 @@ ALL_PATTERNS = {
     }
 }
 
+INT_FIELDS = ['memfreekb', 'memusedkb', 'membufferkb', 'memcachekb', 'runq-sz', 'plist-sz', 'blocked']
+
+STR_FIELDS = ['iface']
+
+MULTILINE_PATTERNS = ['CPU', 'IFACE']
+
 __all__ = [
-    'PATTERN_RESTART', 'PATTERN_MULTISPLIT',
-    'PATTERN_DATE', 'ALL_PATTERNS'
+    'PATTERN_RESTART', 'PATTERN_MULTISPLIT', 'PATTERN_DATE', 'ALL_PATTERNS', 'INT_FIELDS',
+    'STR_FIELDS', 'MULTILINE_PATTERNS'
 ]

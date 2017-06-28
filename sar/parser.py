@@ -6,7 +6,7 @@
    Parses SAR ASCII output only, not binary files!
 """
 
-from sar import PATTERN_RESTART, ALL_PATTERNS
+from sar import PATTERN_RESTART, ALL_PATTERNS, INT_FIELDS, STR_FIELDS, MULTILINE_PATTERNS
 import mmap
 import os
 import re
@@ -378,17 +378,14 @@ class Parser(object):
 
                         value = elems[fields[pairs[sectionname]]]
 
-                        if sectionname == 'membuffer' or \
-                                sectionname == 'memcache' or \
-                                sectionname == 'memfree' or \
-                                sectionname == 'memused' or \
-                                sectionname == 'swapfree' or \
-                                sectionname == 'swapused':
+                        if sectionname in INT_FIELDS:
                             value = int(value)
+                        elif sectionname in STR_FIELDS:
+                            value = str(value)
                         else:
                             value = float(value)
 
-                        if patternsname == 'CPU' or patternsname == 'IFACE':
+                        if patternsname in MULTILINE_PATTERNS:
                             rowid = elems[(1 if is_24hr is True else 2)]
                             try:
                                 blah = return_dict[full_time][rowid]
@@ -397,7 +394,9 @@ class Parser(object):
                                 return_dict[full_time][rowid] = {}
                             return_dict[full_time][rowid][sectionname] = value
                         else:
-                            return_dict[full_time][sectionname] = value
+                            if 'single_line' not in return_dict[full_time]:
+                                return_dict[full_time]['single_line'] = {}
+                            return_dict[full_time]['single_line'][sectionname] = value
 
         return return_dict
 
