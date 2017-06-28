@@ -79,7 +79,7 @@ class Parser(object):
         """
 
         try:
-            test = self._sarinfo["CPU"]
+            test = self._sarinfo['CPU']
             del test
 
         except KeyError:
@@ -117,7 +117,7 @@ class Parser(object):
                 try:
                     fhandle = os.open(self.__filename, os.O_RDONLY)
                 except OSError:
-                    print(("Couldn't open file %s" % self.__filename))
+                    print(('Couldn\'t open file %s' % self.__filename))
                     fhandle = None
 
             if fhandle or data != '':
@@ -194,7 +194,7 @@ class Parser(object):
                     except ValueError:
                         print(('Out of bounds (%s)!\n' % (sarmap.tell())))
                     # Now we repeat find.
-                    dlpos = sarmap.find("\n\n")
+                    dlpos = sarmap.find('\n\n')
 
                 # If it wasn't the end of file, we want last piece of it
                 if oldchunkpos < size:
@@ -348,7 +348,7 @@ class Parser(object):
                 elems = part_line.split()
                 full_time = elems[0].strip()
 
-                if full_time != "Average:":
+                if full_time != 'Average:':
 
                     # Convert time to 24hr format if needed
                     if is_24hr is False:
@@ -372,7 +372,7 @@ class Parser(object):
                         return_dict[full_time] = {}
 
                     fields = self.__fields[patternsname]
-                    pairs = patterns["PAIRS"]
+                    pairs = patterns['PAIRS']
 
                     for sectionname in pairs.iterkeys():
 
@@ -388,15 +388,14 @@ class Parser(object):
                         else:
                             value = float(value)
 
-                        if patternsname == 'CPU':
-                            cpuid = elems[(1 if is_24hr is True else 2)]
+                        if patternsname == 'CPU' or patternsname == 'IFACE':
+                            rowid = elems[(1 if is_24hr is True else 2)]
                             try:
-                                blah = return_dict[full_time][cpuid]
+                                blah = return_dict[full_time][rowid]
                                 del blah
                             except KeyError:
-                                return_dict[full_time][cpuid] = {}
-                            return_dict[full_time][cpuid][sectionname] = \
-                                value
+                                return_dict[full_time][rowid] = {}
+                            return_dict[full_time][rowid][sectionname] = value
                         else:
                             return_dict[full_time][sectionname] = value
 
@@ -412,7 +411,7 @@ class Parser(object):
 
             # Read first line of the file
             try:
-                sar_file = open(self.__filename, "r")
+                sar_file = open(self.__filename, 'r')
 
             except OSError:
                 ### DEBUG
