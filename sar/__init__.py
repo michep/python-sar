@@ -55,7 +55,7 @@ FIELDS_IO = [
 """Pair regexp terms with field names in I/O usage output dictionary"""
 FIELD_PAIRS_IO = {
     'tps': FIELDS_IO[0], 'rtps': FIELDS_IO[1], 'wtps': FIELDS_IO[2],
-    'bread': FIELDS_IO[3], 'bwrite': FIELDS_IO[4],
+    'readb': FIELDS_IO[3], 'writeb': FIELDS_IO[4],
 }
 
 """Task creation and system switching regexp pattern for SAR section header"""
@@ -81,8 +81,8 @@ FIELDS_IFACE = [
 
 """Pair regexp terms with field names in network usage dictionary"""
 FIELD_PAIRS_IFACE = {
-    'iface':FIELDS_IFACE[0], 'rxpck':FIELDS_IFACE[1], 'txpck':FIELDS_IFACE[2], 'rxkB':FIELDS_IFACE[3],
-    'txkB':FIELDS_IFACE[4], 'rxcmp':FIELDS_IFACE[5], 'txcmp':FIELDS_IFACE[6], 'rxmcst':FIELDS_IFACE[7]
+    'iface':FIELDS_IFACE[0], 'rxpck':FIELDS_IFACE[1], 'txpck':FIELDS_IFACE[2], 'rxkb':FIELDS_IFACE[3],
+    'txkb':FIELDS_IFACE[4], 'rxcmp':FIELDS_IFACE[5], 'txcmp':FIELDS_IFACE[6], 'rxmcst':FIELDS_IFACE[7]
 }
 
 """Network usage regexp pattern for SAR section header"""
@@ -97,6 +97,21 @@ FIELDS_LOAD = [
 FIELD_PAIRS_LOAD = {
     'runq-sz':FIELDS_LOAD[0], 'plist-sz':FIELDS_LOAD[1], 'ldavg-1':FIELDS_LOAD[2], 'ldavg-5':FIELDS_LOAD[3],
     'ldavg-15':FIELDS_LOAD[4], 'blocked':FIELDS_LOAD[5]
+}
+
+"""Network usage regexp pattern for SAR section header"""
+PATTERN_PAGING = '.*pgpgin\/s.*pgpgout\/s.*fault\/s.*majflt\/s.*pgfree\/s.*pgscank\/s.*pgscand\/s.*pgsteal\/s.*vmeff'
+
+"""Regexp terms for finding fields in SAR parts for network usage"""
+FIELDS_PAGING = [
+    '^pgpgin\/s','^pgpgout\/s','^fault\/s','^majflt\/s','^pgfree\/s','^pgscank\/s', '^pgscand\/s', '^pgsteal\/s', '^\%vmeff'
+]
+
+"""Pair regexp terms with field names in network usage dictionary"""
+FIELD_PAIRS_PAGING = {
+    'pgpgin':FIELDS_PAGING[0], 'pgpgout':FIELDS_PAGING[1], 'fault':FIELDS_PAGING[2], 'majflt':FIELDS_PAGING[3],
+    'pgfree':FIELDS_PAGING[4], 'pgscank':FIELDS_PAGING[5], 'pgscand':FIELDS_PAGING[6], 'pgsteal': FIELDS_PAGING[7],
+    'vmeffpercent': FIELDS_PAGING[8]
 }
 
 """Restart time regexp pattern for detecting SAR restart notices"""
@@ -143,6 +158,11 @@ ALL_PATTERNS = {
         'PATTERN': PATTERN_LOAD,
         'FIELDS': FIELDS_LOAD,
         'PAIRS': FIELD_PAIRS_LOAD
+    },
+    'PAGING': {
+        'PATTERN': PATTERN_PAGING,
+        'FIELDS': FIELDS_PAGING,
+        'PAIRS': FIELD_PAIRS_PAGING
     }
 }
 
