@@ -76,13 +76,13 @@ PATTERN_IFACE = '.*IFACE.*rxpck\/s.*txpck\/s.*rxkB\/s.*txkB\/s.*rxcmp\/s.*txcmp\
 
 """Regexp terms for finding fields in SAR parts for network usage"""
 FIELDS_IFACE = [
-    '^IFACE','^rxpck\/s','^txpck\/s','^rxkB\/s','^txkB\/s','^rxcmp\/s','^txcmp\/s','^rxmcst\/s'
+    '^rxpck\/s','^txpck\/s','^rxkB\/s','^txkB\/s','^rxcmp\/s','^txcmp\/s','^rxmcst\/s'
 ]
 
 """Pair regexp terms with field names in network usage dictionary"""
 FIELD_PAIRS_IFACE = {
-    'iface':FIELDS_IFACE[0], 'rxpck':FIELDS_IFACE[1], 'txpck':FIELDS_IFACE[2], 'rxkb':FIELDS_IFACE[3],
-    'txkb':FIELDS_IFACE[4], 'rxcmp':FIELDS_IFACE[5], 'txcmp':FIELDS_IFACE[6], 'rxmcst':FIELDS_IFACE[7]
+    'rxpck':FIELDS_IFACE[0], 'txpck':FIELDS_IFACE[1], 'rxkb':FIELDS_IFACE[2],
+    'txkb':FIELDS_IFACE[3], 'rxcmp':FIELDS_IFACE[4], 'txcmp':FIELDS_IFACE[5], 'rxmcst':FIELDS_IFACE[6]
 }
 
 """Network usage regexp pattern for SAR section header"""
