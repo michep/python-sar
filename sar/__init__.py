@@ -100,6 +100,20 @@ FIELD_PAIRS_LOAD = {
 }
 
 """Network usage regexp pattern for SAR section header"""
+PATTERN_DEV = '.*DEV.*tps.*rd_sec\/s.*wr_sec\/s.*avgrq-sz.*avgqu-sz.*await.*svctm.*util'
+
+"""Regexp terms for finding fields in SAR parts for network usage"""
+FIELDS_DEV = [
+    '^tps','^rd_sec\/s','^wr_sec\/s','^avgrq-sz','^avgqu-sz','^await', '^\%util'
+]
+
+"""Pair regexp terms with field names in network usage dictionary"""
+FIELD_PAIRS_DEV = {
+    'tps':FIELDS_DEV[0], 'rd_sec':FIELDS_DEV[1], 'wr_sec':FIELDS_DEV[2], 'avgrq-sz':FIELDS_DEV[3],
+    'avgqu-sz':FIELDS_DEV[4], 'await':FIELDS_DEV[5], 'utilpercent':FIELDS_DEV[6]
+}
+
+"""Network usage regexp pattern for SAR section header"""
 PATTERN_PAGING = '.*pgpgin\/s.*pgpgout\/s.*fault\/s.*majflt\/s.*pgfree\/s.*pgscank\/s.*pgscand\/s.*pgsteal\/s.*vmeff'
 
 """Regexp terms for finding fields in SAR parts for network usage"""
@@ -163,14 +177,19 @@ ALL_PATTERNS = {
         'PATTERN': PATTERN_PAGING,
         'FIELDS': FIELDS_PAGING,
         'PAIRS': FIELD_PAIRS_PAGING
+    },
+    'DEV': {
+        'PATTERN': PATTERN_DEV,
+        'FIELDS': FIELDS_DEV,
+        'PAIRS': FIELD_PAIRS_DEV
     }
 }
 
 INT_FIELDS = ['memfreekb', 'memusedkb', 'membufferkb', 'memcachekb', 'runq-sz', 'plist-sz', 'blocked']
 
-STR_FIELDS = ['iface']
+STR_FIELDS = ['iface', 'dev']
 
-MULTILINE_PATTERNS = ['CPU', 'IFACE']
+MULTILINE_PATTERNS = ['CPU', 'IFACE', 'DEV']
 
 __all__ = [
     'PATTERN_RESTART', 'PATTERN_MULTISPLIT', 'PATTERN_DATE', 'ALL_PATTERNS', 'INT_FIELDS',

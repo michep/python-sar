@@ -1,5 +1,6 @@
 *.sublime-*
 build/*
 dist/*
+.idea/*
 MANIFEST
 *.pyc
